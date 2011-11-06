@@ -5,7 +5,7 @@ end
 
 class Parse
   def initialize(file)
-    @lines = File.readlines(file)
+    @lines = File.readlines(file) ###
   end
   def rows
     lines = @lines.compact.uniq
