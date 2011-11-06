@@ -16,24 +16,23 @@ class Parse
     columns = rows.transpose
   end
   def histogram_c
-    columns.collect do |r|
-      nums = r.uniq
-      totals = {}
-      nums.each do |n|
-        totals[n.to_s] = r.count(n)
-      end
-      totals
+    columns.collect do |c|
+      histogram_hash_count_by(c)
     end
   end
   def histogram_r
     rows.collect do |r|
-      nums = r.uniq
+      histogram_hash_count_by(r)
+    end
+  end
+  private
+  def histogram_hash_count_by(x)
+      uniq_nums = x.uniq
       totals = {}
-      nums.each do |n|
-        totals[n.to_s] = r.count(n)
+      uniq_nums.each do |n|
+        totals[n.to_s] = x.count(n)
       end
       totals
-    end
   end
 end
 
