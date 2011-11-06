@@ -17,5 +17,25 @@ class Parse
   def columns
     columns = rows.transpose
   end
+  def histogram_c
+    columns.collect do |r|
+      nums = r.uniq
+      totals = {}
+      nums.each do |n|
+        totals[n.to_s] = r.count(n)
+      end
+      totals
+    end
+  end
+  def histogram_r
+    rows.collect do |r|
+      nums = r.uniq
+      totals = {}
+      nums.each do |n|
+        totals[n.to_s] = r.count(n)
+      end
+      totals
+    end
+  end
 end
 

@@ -13,4 +13,8 @@ class TestProblem_79 < Test::Unit::TestCase
     data = Parse.new("../num_list.txt")
     assert_equal [[1,1,1,2], [2,4,2,3], [3,3,4,4]], data.columns
   end
+  def test_puts_histogram
+    data = Parse.new("../num_list.txt")
+    puts data.histogram_r
+  end
 end
