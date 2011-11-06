@@ -13,8 +13,13 @@ class TestProblem_79 < Test::Unit::TestCase
     data = Parse.new("../num_list.txt")
     assert_equal [[1,1,1,2], [2,4,2,3], [3,3,4,4]], data.columns
   end
-  def test_puts_histogram
+  def test_histogram_r_counts_row_occurances
     data = Parse.new("../num_list.txt")
-    puts data.histogram_r
+    assert_equal [{"1"=>1,"2"=>1,"3"=>1}, {"1"=>1,"4"=>1,"3"=>1}, {"1"=>1,"2"=>1,"4"=>1}, {"2"=>1,"3"=>1,"4"=>1}], data.histogram_r
   end
+  def test_histogram_c_counts_col_occurances
+    data = Parse.new("../num_list.txt")
+    assert_equal [{"1"=>3, "2"=>1}, {"2"=>2, "4"=>1, "3"=>1}, {"3"=>2, "4"=>2}], data.histogram_c
+  end
+
 end
