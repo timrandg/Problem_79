@@ -4,7 +4,7 @@ $:.unshift File.join(File.dirname(__FILE__), "..", "lib")
 Dir.glob(File.dirname(__FILE__) + '/../lib/*'){|file| require file}
 require "test/unit"
 
-class TestProblem_79 < Test::Unit::TestCase
+class TestParse < Test::Unit::TestCase
   def test_can_parse_num_file_into_rows
     data = Parse.new("../num_list.txt")
     assert_equal [[1,2,3], [1,4,3], [1,2,4], [2,3,4]], data.rows
@@ -21,5 +21,11 @@ class TestProblem_79 < Test::Unit::TestCase
     data = Parse.new("../num_list.txt")
     assert_equal [{"1"=>3, "2"=>1}, {"2"=>2, "4"=>1, "3"=>1}, {"3"=>2, "4"=>2}], data.histogram_c
   end
+  def test_summary_array_c
+    puts
+    val =Parse.new("../num_list.txt").weighted_percentage_array_c  
+    p val.each_with_index.sort{|a,b,i|b<=>a}.collect{|a| a[1]}
 
+
+  end
 end
