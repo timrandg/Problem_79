@@ -6,26 +6,15 @@ require "test/unit"
 
 class TestParse < Test::Unit::TestCase
   def test_can_parse_num_file_into_rows
-    data = Parse.new("../num_list.txt")
-    assert_equal [[1,2,3], [1,4,3], [1,2,4], [2,3,4]], data.rows
+    data = Parse.new("../test_list.txt")
+    assert_equal [[1,2,3], [1,3,4], [1,2,4], [2,3,4]], data.rows
   end
   def test_can_parse_num_file_into_columns
-    data = Parse.new("../num_list.txt")
-    assert_equal [[1,1,1,2], [2,4,2,3], [3,3,4,4]], data.columns
+    data = Parse.new("../test_list.txt")
+    assert_equal [[1,1,1,2], [2,3,2,3], [3,4,4,4]], data.columns
   end
-  def test_histogram_r_counts_row_occurances
-    data = Parse.new("../num_list.txt")
-    assert_equal [{"1"=>1,"2"=>1,"3"=>1}, {"1"=>1,"4"=>1,"3"=>1}, {"1"=>1,"2"=>1,"4"=>1}, {"2"=>1,"3"=>1,"4"=>1}], data.histogram_r
-  end
-  def test_histogram_c_counts_col_occurances
-    data = Parse.new("../num_list.txt")
-    assert_equal [{"1"=>3, "2"=>1}, {"2"=>2, "4"=>1, "3"=>1}, {"3"=>2, "4"=>2}], data.histogram_c
-  end
-  def test_summary_array_c
-    puts
-    val =Parse.new("../num_list.txt").weighted_percentage_array_c  
-    p val.each_with_index.sort{|a,b,i|b<=>a}.collect{|a| a[1]}
-
-
+  def test_gives_correct_answer_for_puzzles 
+    assert_equal '73162890', Parse.new("../num_list.txt").give_answer
+    assert_equal '1234', Parse.new("../test_list.txt").give_answer
   end
 end
