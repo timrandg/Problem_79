@@ -10,48 +10,44 @@ class Parse
     @rows = nums.collect{|num| num.chomp.split('').map(&:to_i)}
     @columns = rows.transpose
   end
+  
 
-  def sum_of_item_in_each_col
-    total = []
-    columns.each do |col|
-      #one occurance for each digit, assume no occurances--0
-      column = Array.new(10){0} 
-        col.each do |digit|
-          column[digit]+=1
-        end
-      total << column
+  def count_item_per_column
+    #how many Bs are in column 1,2,3,etc.
+    columns.map do |column|
+      sum_column = Array.new(10){0} 
+      sum_column.map.each_with_index{ |_, ind| column.count(ind) }
     end
-    total
   end
 
-  def grand_total_of_item_for_all_columns
-    sum_of_item_in_each_col.transpose.map{|arr| arr.inject{|s,n|s+n} }
+  def grand_total_in_all_columns
+    count_item_per_column.transpose.map{|arr| arr.inject{|s,n|s+n} }
   end
 
-  def c_total_for(num)
-    grand_total_of_item_for_all_columns[num]
+  def grand_total_for(num)
+    grand_total_in_all_columns[num]
   end
 
-  def percentage_array_c
-     fin = sum_of_item_in_each_col.collect do |arr_dig|
-       arr_dig.collect.each_with_index do |dig,ind|
-         if dig != 0
-            (dig/c_total_for(ind).to_f).round(4)  
-         else
+  def frequency_per_column
+     count_item_per_column.collect do |count|
+       count.collect.each_with_index do |dig,ind|
+         if dig.zero?
             dig
+         else
+            (dig/grand_total_for(ind).to_f).round(2)  
          end
        end
      end
   end
 
-  def weighted_percentage_array_c
-    percentage_array_c.transpose.collect do |m|
+  def weighted_score_for_each_digit
+    frequency_per_column.transpose.collect do |m|
       (Matrix[m]*Matrix[*make_array_down_from(columns.length)]).determinant
     end
   end
 
   def give_answer
-    weighted_percentage_array_c.each_with_index.sort{|a,b|b<=>a}.collect{|a| a[1] unless a[0]==0}.join('')
+    weighted_score_for_each_digit.each_with_index.sort{|a,b|b<=>a}.collect{|a| a[1] unless a[0]==0}.join('').to_i
   end
 
   private

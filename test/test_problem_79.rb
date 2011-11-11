@@ -14,7 +14,7 @@ class TestParse < Test::Unit::TestCase
     assert_equal [[1,1,1,2], [2,3,2,3], [3,4,4,4]], data.columns
   end
   def test_gives_correct_answer_for_puzzles 
-    assert_equal '73162890', Parse.new("../num_list.txt").give_answer
-    assert_equal '1234', Parse.new("../test_list.txt").give_answer
+    assert_equal 73162890, Parse.new("../num_list.txt").give_answer
+    assert_equal 1234, Parse.new("../test_list.txt").give_answer
   end
 end
